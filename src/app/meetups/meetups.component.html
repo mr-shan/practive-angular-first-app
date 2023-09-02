@@ -1,0 +1,82 @@
+<div class="meetup-form-container">
+  <div class="notification-wrapper" *ngIf="notificationMessage">
+    {{ notificationMessage }}
+  </div>
+  <h2>{{ title }}</h2>
+  <hr />
+
+  <br />
+
+  <div class="input-wrapper">
+    <label for="first-name">First Name: </label>
+    <input
+      name="first-name"
+      id="first-name"
+      [(ngModel)]="firstName"
+      placeholder="Jon"
+    />
+  </div>
+
+  <br />
+
+  <div class="input-wrapper">
+    <label for="last-name">Last Name: </label>
+    <input
+      name="last-name"
+      id="last-name"
+      [(ngModel)]="lastName"
+      placeholder="Doe"
+    />
+  </div>
+
+  <br />
+  <hr />
+
+  <footer>
+    <p *ngIf="isFormValid(); else noInput">
+      <span style="color: #666">Welcome, </span>
+      <span>{{ firstName }} {{ lastName }}!</span>
+    </p>
+    <ng-template #noInput>
+      <p style="color: #aaa; font-size: 0.75rem">
+        Enter your details to continue...
+      </p>
+    </ng-template>
+    <button
+      class="continue-button"
+      [disabled]="!isFormValid()"
+      (click)="onSubmit()"
+    >
+      Continue
+    </button>
+  </footer>
+</div>
+
+<br />
+
+<div class="signed-in-users-container">
+  <h2>People coming to this meetup</h2>
+  <hr />
+  <p
+    *ngIf="people.length === 0; else peopleList"
+    style="margin-top: 1rem; color: #999"
+  >
+    Waiting for people...
+  </p>
+  <ng-template #peopleList>
+    <p
+      style="
+        font-size: 0.9rem;
+        margin-bottom: 0.75rem;
+        margin-top: 0.8rem;
+      "
+    >
+      <span style="color: #999">Total: </span>
+      <span style="color: royalblue">{{ people.length }}</span>
+    </p>
+    <ul class="list-wrapper">
+      <li class="list-item" *ngFor="let item of people">{{ item }}</li>
+    </ul>
+  </ng-template>
+  <br />
+</div>
